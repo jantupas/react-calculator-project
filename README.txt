@@ -1,1 +1,0 @@
-A Simple Calculator Project made using HTML, CSS, JS, ReactJS
