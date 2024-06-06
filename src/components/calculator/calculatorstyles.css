@@ -2,15 +2,31 @@
     background-color: #76ABAE;
     width: 300px;
     height: 350px;
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin: auto;
     border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.whole-container {
+    text-align: center;
+}
+.calc-title {
+    display: inline-block;
+    color: white;
+    transition: color 0.5s;
+    border-right: 2px solid;
+    white-space: nowrap;
+    overflow: hidden;
+    width: auto;
+    animation:
+        typing 3s infinite alternate,
+        cursor 0.4s step-end infinite alternate;
+}
+.calc-title:hover {
+    cursor: pointer;
+    color: aqua;
+    transition: color 0.5s;
 }
 .outer-container {
     width: 100%;
@@ -57,4 +73,13 @@
 .row2-2, .row6-1{
     display: flex;
     gap: 1px;
+}
+
+@keyframes cursor {
+    50% { border-color: transparent }
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 37% }
 }

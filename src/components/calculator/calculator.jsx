@@ -6,20 +6,31 @@ function Calculator() {
 
     let box1desc = useRef(null);
     let inputArr = [];
-
     const output = () => {
         return inputArr.join("");
     }
 
-    const reset = () => {
+    const completeReset = () => {
         inputArr.length = 0;
     }
-
+    
     const del = () => {
         inputArr.pop();
     }
+    
+    const checkDecCount = () => {
+        for(let i = 0; i <= inputArr.length; i++){
+            if(inputArr[i] === '.'){
+                return true;
+            }
+        }
+        return false;
+    }
+
     const checkDec = () => {
-        if(inputArr[inputArr.length-1] === '.'){
+        if(inputArr.length === 0){
+            return true;
+        }else if(inputArr[inputArr.length-1] === '.'){
             return true;
         }else{
             return false;
@@ -69,22 +80,22 @@ function Calculator() {
             box1desc.current.innerHTML = output();
             break;
             case 'add': 
-            box1desc.current.innerHTML = '+';
+            box1desc.current.innerHTML = output();
             break;
             case 'sub': 
-            box1desc.current.innerHTML = '-';
+            box1desc.current.innerHTML = output();
             break;
             case 'div': 
-            box1desc.current.innerHTML = '÷';
+            box1desc.current.innerHTML = output();
             break;
             case 'mul': 
-            box1desc.current.innerHTML = '*';
+            box1desc.current.innerHTML = output();
             break;
             case 'equal': 
-            box1desc.current.innerHTML = '=';
+            box1desc.current.innerHTML = output();
             break;
             case 'ac': 
-            reset();
+            completeReset();
             box1desc.current.innerHTML = output();
             break;
             case 'del': 
@@ -92,7 +103,7 @@ function Calculator() {
             box1desc.current.innerHTML = output();
             break;
             case 'dot': 
-            if(checkDec()===true){
+            if(checkDec()===true || checkDecCount() === true){
                 box1desc.current.innerHTML = output();
             }else{
                 inputArr.push('.')
@@ -104,7 +115,8 @@ function Calculator() {
         }
     }
     return (
-        <div>
+        <div className='whole-container'>
+            <h1 className='calc-title'>+-+- JET Calculator -+-+</h1>
             <div className='calculator-container'>
                 <div className='outer-container'>
                     <div className='inner-container'>
@@ -126,7 +138,7 @@ function Calculator() {
                             <div className='boxes' onClick={()=>{input('1')}}>1</div>
                             <div className='boxes' onClick={()=>{input('2')}}>2</div>
                             <div className='boxes' onClick={()=>{input('3')}}>3</div>
-                            <div className='boxes'>*</div>
+                            <div className='boxes' onClick={()=>{input('mul')}}>*</div>
                         </div>
                         <div className='row4'>
                             <div className='boxes' onClick={()=>{input('4')}}>4</div>
