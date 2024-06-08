@@ -20,7 +20,6 @@
     display: inline-block;
     color: white;
     transition: color 0.5s;
-    border-right: 2px solid;
     white-space: nowrap;
     overflow: hidden;
     width: auto;
