@@ -5,13 +5,33 @@ import { useRef } from 'react'
 function Calculator() {
 
     let box1desc = useRef(null);
+    let boxopdesc = useRef(null);
     let inputArr = [];
+    let total = 0;
+    let op = [];
+    let firstIn = true;
+    let firstOp = true;
+
+
+    const resetArr = () => {
+        inputArr.length = 0;
+    }
+
+    const resetOp  = () => {
+        op.length = 0;
+    }
+
     const output = () => {
         return inputArr.join("");
     }
 
     const completeReset = () => {
-        inputArr.length = 0;
+        resetArr();
+        resetOp();
+        total = 0;
+        firstIn = true;
+        firstOp = true;
+        //boxopdesc.current.innerHTML = "";
     }
     
     const del = () => {
@@ -37,92 +57,232 @@ function Calculator() {
         }
     }
 
+    const getTotal = () => {
+        if(firstIn){
+            total = Number(output());
+            resetArr();
+            firstIn = false;
+        }
+    }
+
+    const displayTotal = () => {
+        box1desc.current.innerHTML = total.toString();
+        resetArr();
+    }
+
+    const checkArrLen = () => {
+        if(inputArr.length < 15){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    const checkArrLenDec = () => {
+        if(inputArr.length < 14){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    const showOp = (ope) => {
+        switch(ope){
+            case 1:
+                boxopdesc.current.innerHTML = "+"
+                break;
+            case 2:
+                boxopdesc.current.innerHTML = "-"
+                break;
+            case 3:
+                boxopdesc.current.innerHTML = "*"
+                break;
+            case 4:
+                boxopdesc.current.innerHTML = "÷"
+                break;
+            default:
+                boxopdesc.current.innerHTML = "error"
+        }
+    }
+
+    
+    const compute = (op) => {
+        switch(op){
+            case 1:
+                total += Number(output());
+                displayTotal();
+                break;
+            case 2:
+                total -= Number(output());
+                displayTotal();
+                break;
+            case 3:
+                total *= Number(output());
+                displayTotal();
+                break;
+            case 4:
+                total /= Number(output());
+                displayTotal();
+                break;
+            default:
+                box1desc.current.innerHTML = "error";
+        }
+    }
+
+
     const input = (key) => {
         switch(key){
             case '1': 
-            inputArr.push('1')
-            box1desc.current.innerHTML = output();
-            break;
+                if(checkArrLen()){
+                    inputArr.push('1')
+                    box1desc.current.innerHTML = output();
+                }
+                break;
             case '2': 
-            inputArr.push('2')
-            box1desc.current.innerHTML = output();
-            break;
+                if(checkArrLen()){
+                    inputArr.push('2')
+                    box1desc.current.innerHTML = output();
+                }
+                break;
             case '3': 
-            inputArr.push('3')
-            box1desc.current.innerHTML = output();
-            break;
+                if(checkArrLen()){
+                    inputArr.push('3')
+                    box1desc.current.innerHTML = output();
+                }
+                break;
             case '4': 
-            inputArr.push('4')
-            box1desc.current.innerHTML = output();
-            break;
+                if(checkArrLen()){
+                    inputArr.push('4')
+                    box1desc.current.innerHTML = output();
+                }
+                break;
             case '5': 
-            inputArr.push('5')
-            box1desc.current.innerHTML = output();
-            break;
+                if(checkArrLen()){
+                    inputArr.push('5')
+                    box1desc.current.innerHTML = output();
+                }
+                break;
             case '6': 
-            inputArr.push('6')
-            box1desc.current.innerHTML = output();
-            break;
+                if(checkArrLen()){
+                    inputArr.push('6')
+                    box1desc.current.innerHTML = output();
+                }
+                break;
             case '7': 
-            inputArr.push('7')
-            box1desc.current.innerHTML = output();
-            break;
+                if(checkArrLen()){
+                    inputArr.push('7')
+                    box1desc.current.innerHTML = output();
+                }
+                break;
             case '8': 
-            inputArr.push('8')
-            box1desc.current.innerHTML = output();
-            break;
+                if(checkArrLen()){
+                    inputArr.push('8')
+                    box1desc.current.innerHTML = output();
+                }
+                break;
             case '9': 
-            inputArr.push('9')
-            box1desc.current.innerHTML = output();
-            break;
+                if(checkArrLen()){
+                    inputArr.push('9')
+                    box1desc.current.innerHTML = output();
+                }
+                break;
             case '0': 
-            inputArr.push('0')
-            box1desc.current.innerHTML = output();
-            break;
+                if(checkArrLen()){
+                    inputArr.push('0')
+                    box1desc.current.innerHTML = output();
+                }
+                break;
             case 'add': 
-            box1desc.current.innerHTML = output();
-            break;
+                if(inputArr.length !== 0){
+                    op.push(1);
+                    //showOp(op[op.length-1]);
+                    if(firstOp){
+                        firstOp = false;
+                        getTotal();
+                    }else{
+                        compute(op[op.length-2]);
+                    }
+                }
+                break;
             case 'sub': 
-            box1desc.current.innerHTML = output();
-            break;
-            case 'div': 
-            box1desc.current.innerHTML = output();
+                if(inputArr.length !== 0){
+                    op.push(2);
+                //showOp(op[op.length-1]);
+                if(firstOp){
+                    firstOp = false;
+                    getTotal();
+                }else{
+                    compute(op[op.length-2]);
+                }
+                }
             break;
             case 'mul': 
-            box1desc.current.innerHTML = output();
+                if(inputArr.length !== 0){
+                    op.push(3);
+                //showOp(op[op.length-1]);
+                if(firstOp){
+                    firstOp = false;
+                    getTotal();
+                }else{
+                    compute(op[op.length-2]);
+                }
+                }
+            break;
+            case 'div': 
+                if(inputArr.length !== 0){
+                op.push(4);
+                //showOp(op[op.length-1]);
+                if(firstOp){
+                    firstOp = false;
+                    getTotal();
+                }else{
+                    compute(op[op.length-2]);
+                }
+            } 
             break;
             case 'equal': 
-            box1desc.current.innerHTML = output();
-            break;
+                if(inputArr.length !== 0){
+                    compute(op[op.length-1]);
+                    resetOp();
+                    firstOp = true;
+                }
+                break;
             case 'ac': 
-            completeReset();
-            box1desc.current.innerHTML = output();
-            break;
+                completeReset();
+                box1desc.current.innerHTML = output();
+                break;
             case 'del': 
-            del()
-            box1desc.current.innerHTML = output();
-            break;
+                if(inputArr.length !== 0){
+                    del()
+                    box1desc.current.innerHTML = output();
+                }
+                break;
             case 'dot': 
-            if(checkDec()===true || checkDecCount() === true){
-                box1desc.current.innerHTML = output();
-            }else{
-                inputArr.push('.')
-                box1desc.current.innerHTML = output();
-            }
-            break;
+                if(checkArrLenDec()){
+                    if(checkDec()===true || checkDecCount() === true){
+                        box1desc.current.innerHTML = output();
+                    }else{
+                        inputArr.push('.')
+                        box1desc.current.innerHTML = output();
+                    }
+                }
+                break;
             default:
                 box1desc.current.innerHTML = 'error';
         }
     }
     return (
         <div className='whole-container'>
-            <h1 className='calc-title'>+-+- JET Calculator -+-+</h1>
+            <h1 className='calc-title'>+-+- JET CALCULATOR -+-+</h1>
             <div className='calculator-container'>
                 <div className='outer-container'>
                     <div className='inner-container'>
                         <div className='row1'>
+                            {/*} <div ref={boxopdesc} className='opbox'>
+                                <p></p>
+                            </div> */}
                             <div className='box1'>
-                                <p ref={box1desc}>this is the output</p>
+                                <p ref={box1desc} className='box1desc'>JET Calculator</p>
                             </div>
                         </div>
                         <div className='row2'>

@@ -8,6 +8,11 @@
     justify-content: center;
     align-items: center;
 }
+.box1desc {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: white;
+}
 .whole-container {
     text-align: center;
 }
@@ -20,7 +25,7 @@
     overflow: hidden;
     width: auto;
     animation:
-        typing 3s infinite alternate,
+        typing 4s infinite alternate,
         cursor 0.4s step-end infinite alternate;
 }
 .calc-title:hover {
@@ -36,14 +41,20 @@
     background-color: white;
 }
 .box1 {
-    height: 70px;
-    background-color: #2C3E50 ;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .row1 {
-    padding: 1px 1px 1px 1px;
+    background-color: #2C3E50;
+    border: solid 1.5px white;
+}
+.opbox {
+    font-size: 1rem;
+    margin-right: 20px;
+    text-align: right;
+    color: white;
 }
 .row2, .row3, .row4, .row5, .row6{
     display: flex;
@@ -81,5 +92,5 @@
 
 @keyframes typing {
     from { width: 0 }
-    to { width: 37% }
+    to { width: 42% }
 }
